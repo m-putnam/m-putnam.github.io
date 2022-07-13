@@ -1,9 +1,14 @@
-body {
-	/* color: #5b52fa; */
+body
+{
 	color: #363833;
 	background-color: #f6f1ca;
 	padding: 0;
 	margin: 0;
+}
+
+p
+{
+	hyphens: auto;
 }
 
 h1, h2, h3, h4, h5, h6
@@ -15,7 +20,7 @@ h1, h2
 {
 	color: #f6f1ca;
 	background-color: #5b52fa;
-	padding-left: 16px;
+	padding: 16px;
 }
 
 div.box
@@ -24,4 +29,18 @@ div.box
 	padding: 8px;
 	margin: 8px;
 	max-width: 800px;
+}
+
+/* Simple color inversion when we hover on a link. */
+a
+{
+	color: #f6f1ca;
+	background-color: #5b52fa;
+	text-decoration: none;
+}
+
+a:hover
+{
+	background-color: #f6f1ca;
+	color: #5b52fa;
 }
