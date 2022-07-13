@@ -19,12 +19,14 @@ function populateWeather(info)
 {
 	let props = info.properties;
 	let box = document.getElementById('weather');
-	let p = document.createElement('p');
+	let hdr = document.getElementById('wxheader');
 	let observationStamp = new Date(props.timestamp);
-	p.innerText = 'Conditions in Keene, NH circa ' + fmtClockTime(observationStamp);
-	box.appendChild(p);
+	hdr.innerText = 'Conditions in Keene, NH circa ' + fmtClockTime(observationStamp) + ': '
+		+ props.textDescription;
+	let report = document.createElement("p");
 }
 
+/* Format a timestamp in twelve-hour time */
 function fmtClockTime(stamp)
 {
 	let str = stamp.getHours() % 12 + ':';
@@ -32,9 +34,6 @@ function fmtClockTime(stamp)
 		str += '0';
 
 	str += stamp.getMinutes() + ' ';
-	if (stamp.getHours() % 12)
-		str += 'PM';
-	else
-		str += 'AM';
+	str += (stamp.getHours() % 12) ? 'PM' : 'AM';
 	return str;
 }
