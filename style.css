@@ -26,15 +26,15 @@ h1, h2
 {
 	color: #f6f1ca;
 	background-color: #5b52fa;
-	padding: 16px;
+	padding: 16pt;
 }
 
 div.box
 {
 	border: solid;
-	padding: 8px;
-	margin: 8px;
-	max-width: 800px;
+	padding: 8pt;
+	margin: 8pt;
+	max-width: 8in;
 }
 
 /* Simple color inversion when we hover on a link. */
