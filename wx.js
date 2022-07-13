@@ -39,13 +39,22 @@ function populateWeather(info)
 
         let dirs = ["N", "NNE", "NE", "ENE", "E", "ESE",
             "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-	
+
+	let windSpd = Math.round(kphToMph(props.windSpeed.value)) + ' mph';
 	if (!(props.windDirection.value === null))
 	{
-		let heading = Math.round((props.windDirection.value + 11.25) / 22.5) - 2;
+		let heading = Math.round((props.windDirection.value + 11.25) / 22.5);
 		console.log(heading);
-		report.innerHTML += 'Wind: ' + dirs[heading] + ' '
-			+ Math.round(kphToMph(props.windSpeed.value)) + ' mph';
+		report.innerHTML += 'Wind: ' + dirs[heading % 16] + ' '
+			+ windSpd;
+	}
+	else if (props.windSpeed.value != 0)
+	{
+		report.innerHTML += 'Wind: Vbr ' + windSpd;
+	}
+	else
+	{
+		report.innerHTML += 'Wind: ' + windSpd;
 	}
 
 	box.appendChild(report);
