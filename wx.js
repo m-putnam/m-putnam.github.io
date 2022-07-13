@@ -33,6 +33,32 @@ function populateWeather(info)
 	hdr.innerText = 'Conditions in Keene, NH circa ' + fmtClockTime(observationStamp) + ': '
 		+ props.textDescription;
 	let report = document.createElement("p");
+	report.innerHTML = 'Temperature: ' + Math.round(cToF(props.temperature.value)) + '°F\n<br />';
+
+	report.innerHTML += 'Humidity: ' + Math.round(props.relativeHumidity.value) + '%\n<br />';
+
+        let dirs = ["N", "NNE", "NE", "ENE", "E", "ESE",
+            "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+	
+	if (!(props.windDirection.value === null))
+	{
+		let heading = Math.round((props.windDirection.value + 11.25) / 22.5) - 2;
+		console.log(heading);
+		report.innerHTML += 'Wind: ' + dirs[heading] + ' '
+			+ Math.round(kphToMph(props.windSpeed.value)) + ' mph';
+	}
+
+	box.appendChild(report);
+}
+
+function cToF(celsius)
+{
+	return celsius * (9.0 / 5.0) + 32;
+}
+
+function kphToMph(kph)
+{
+	return kph * 0.621;
 }
 
 /* Format a timestamp in twelve-hour time.  If hours are greater than
