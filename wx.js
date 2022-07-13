@@ -11,6 +11,7 @@ async function getStation(name)
 	let url = 'https://api.weather.gov/stations/' + name + '/observations/latest';
 	let data = await fetch(url, {
 		mode: 'cors',
+		cache: 'no-cache',
 	});
 	/* Debug logic, just in case I break fetching again. */
 	console.log('Station data fetched for ' + name);
