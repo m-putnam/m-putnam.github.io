@@ -9,6 +9,7 @@ window.onload = async function()
 async function getStation(name)
 {
 	let url = 'https://api.weather.gov/stations/' + name + '/observations/latest';
+	/* No stale observations */
 	let data = await fetch(url, {
 		mode: 'cors',
 		cache: 'no-cache',

@@ -37,7 +37,6 @@ div.box
 	max-width: 8in;
 }
 
-/* Simple color inversion when we hover on a link. */
 a
 {
 	color: #f6f1ca;
@@ -45,6 +44,7 @@ a
 	text-decoration: none;
 }
 
+/* Simple color inversion when we hover on a link. */
 a:hover
 {
 	background-color: #f6f1ca;
