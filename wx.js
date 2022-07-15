@@ -52,7 +52,7 @@ function populateWeather(info)
 	}
 	else if (props.windSpeed.value != 0)
 	{
-		report.innerHTML += 'Wind: Vbr ' + windSpd;
+		report.innerHTML += 'Wind: Vrbl ' + windSpd;
 	}
 	else
 	{
