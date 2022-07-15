@@ -58,6 +58,11 @@ function populateWeather(info)
 	{
 		report.innerHTML += 'Wind: ' + windSpd;
 	}
+	report.innerHTML += '\n<br />';
+
+	mbar = props.seaLevelPressure.value * 0.01;
+	report.innerHTML += '\nBarometer: ' + mbarToInHg(mbar).toFixed(2) + ' in ('
+		+ mbar.toFixed(1) + ' mb)';
 
 	box.appendChild(report);
 }
@@ -70,6 +75,11 @@ function cToF(celsius)
 function kphToMph(kph)
 {
 	return kph * 0.621;
+}
+
+function mbarToInHg(mbar)
+{
+	return mbar * 0.02953;
 }
 
 /* Format a timestamp in twelve-hour time.  If hours are greater than
