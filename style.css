@@ -50,3 +50,14 @@ a:hover
 	background-color: #f6f1ca;
 	color: #5b52fa;
 }
+
+td
+{
+	padding: 0;
+}
+
+td#right
+{
+	text-align: right;
+	padding-right: 1em;
+}

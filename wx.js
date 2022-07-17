@@ -1,3 +1,5 @@
+'use strict';
+
 window.onload = async function()
 {
 	var stationInfo = await getStation('KEEN');
@@ -19,6 +21,21 @@ async function getStation(name)
 	return await data.json();
 }
 
+function makeRow(table, heading, content)
+{
+	let tableRow = document.createElement("tr");
+	let rowHeading = document.createElement("td");
+	rowHeading.id = 'right';
+	let rowHeadingLabel = document.createElement("b");
+	rowHeadingLabel.innerText = heading;
+	rowHeading.appendChild(rowHeadingLabel);
+	let rowContent = document.createElement("td");
+	rowContent.innerText = content;
+	tableRow.appendChild(rowHeading);
+	tableRow.appendChild(rowContent);
+	table.appendChild(tableRow);
+}
+
 /* Populate the on-page weather information box with data */
 function populateWeather(info)
 {
@@ -34,37 +51,39 @@ function populateWeather(info)
 	 * retrieval function. */
 	hdr.innerText = 'Conditions in Keene, NH circa ' + fmtClockTime(observationStamp) + ': '
 		+ props.textDescription;
-	let report = document.createElement("p");
-	report.innerHTML = 'Temperature: ' + Math.round(cToF(props.temperature.value)) + '°F\n<br />';
 
-	report.innerHTML += 'Humidity: ' + Math.round(props.relativeHumidity.value) + '%\n<br />';
+	let wxTable = document.getElementById('wxtable');
+	let tempLabel = Math.round(cToF(props.temperature.value)) + '°F';
+	makeRow(wxTable, 'Temperature', tempLabel);
+
+	let humidityLabel = Math.round(props.relativeHumidity.value) + '%';
+	makeRow(wxTable, 'Humidity', humidityLabel);
 
         let dirs = ["N", "NNE", "NE", "ENE", "E", "ESE",
             "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
+	let windLabel = '';
 	let windSpd = Math.round(kphToMph(props.windSpeed.value)) + ' mph';
-	if (!(props.windDirection.value === null))
-	{
+	if (props.windDirection.value !== null) {
 		let heading = Math.round((props.windDirection.value + 11.25) / 22.5);
 		console.log(heading);
-		report.innerHTML += 'Wind: ' + dirs[heading % 16] + ' '
-			+ windSpd;
+		windLabel = dirs[heading % 16] + ' ' + windSpd;
+	} else if (props.windSpeed.value != 0) {
+		windLabel = 'Vrbl ' + windSpd;
+	} else {
+		windLabel = windSpd;
 	}
-	else if (props.windSpeed.value != 0)
-	{
-		report.innerHTML += 'Wind: Vrbl ' + windSpd;
-	}
-	else
-	{
-		report.innerHTML += 'Wind: ' + windSpd;
-	}
-	report.innerHTML += '\n<br />';
+	makeRow(wxTable, 'Wind Speed', windLabel);
 
-	mbar = props.seaLevelPressure.value * 0.01;
-	report.innerHTML += '\nBarometer: ' + mbarToInHg(mbar).toFixed(2) + ' in ('
-		+ mbar.toFixed(1) + ' mb)';
-
-	box.appendChild(report);
+	let pressureLabel = '';
+	if (props.seaLevelPressure.value !== null) {
+		mbar = props.seaLevelPressure.value * 0.01;
+		pressureLabel = mbarToInHg(mbar).toFixed(2) + ' in ('
+			+ mbar.toFixed(1) + ' mb)';
+	} else {
+		pressureLabel = 'NA';
+	}
+	makeRow(wxTable, 'Barometer', pressureLabel);
 }
 
 function cToF(celsius)
